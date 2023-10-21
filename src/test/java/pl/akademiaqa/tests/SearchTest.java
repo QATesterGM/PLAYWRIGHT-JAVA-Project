@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import pl.akademiaqa.pages.HomePage;
 import pl.akademiaqa.pages.SearchResultsPage;
+import pl.akademiaqa.utils.Properties;
 
 import java.util.stream.Stream;
 
@@ -22,7 +22,7 @@ class SearchTest extends BaseTest {
     @BeforeEach
     void beforeEach() {
         homePage = new HomePage(page);
-        page.navigate("https://skleptestera.pl/");
+        page.navigate(Properties.getProperty("app.url"));
     }
 
     @Test
@@ -62,7 +62,9 @@ class SearchTest extends BaseTest {
         return  Stream.of(
                 Arguments.of("t-shirt", 1),
                 Arguments.of("mug", 5),
-                Arguments.of("frame", 4)
+                Arguments.of("frame", 4),
+                Arguments.of("notebook", 3),
+                Arguments.of("graphics", 3)
         );
     }
 }

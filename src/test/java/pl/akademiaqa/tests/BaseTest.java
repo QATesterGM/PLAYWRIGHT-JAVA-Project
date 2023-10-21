@@ -18,7 +18,10 @@ public class BaseTest {
     @BeforeAll
     static void launchBrowser() {
         pw = Playwright.create();
-        browser = pw.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(0));
+        browser = pw.chromium().launch(new BrowserType.LaunchOptions()
+                .setHeadless(false)
+                .setSlowMo(0)
+                .setChannel("msedge"));
 
     }
 

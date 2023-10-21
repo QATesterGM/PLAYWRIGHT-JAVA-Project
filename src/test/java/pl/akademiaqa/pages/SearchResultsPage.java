@@ -1,10 +1,8 @@
 package pl.akademiaqa.pages;
 
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.LoadState;
 import lombok.Getter;
 import pl.akademiaqa.pages.sections.searchResultPage.SearchResultsSection;
-import pl.akademiaqa.utils.PageUtils;
 
 import static pl.akademiaqa.utils.PageUtils.*;
 

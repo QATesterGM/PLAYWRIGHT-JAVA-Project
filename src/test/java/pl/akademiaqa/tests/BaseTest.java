@@ -2,27 +2,20 @@ package pl.akademiaqa.tests;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
-import pl.akademiaqa.utils.StringUtils;
+import pl.akademiaqa.factory.BrowserFactory;
 
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
 
-    private static Playwright pw;
-    protected static Browser browser;
+    private BrowserFactory browserFactory;
+    private Browser browser;
     protected BrowserContext browserContext;
     protected Page page;
 
     @BeforeAll
-    static void launchBrowser() {
-        pw = Playwright.create();
-        browser = pw.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false)
-                .setSlowMo(0)
-                .setChannel("msedge"));
-
+    void launchBrowser() {
+        browserFactory = new BrowserFactory();
+        browser = browserFactory.getBrowser();
     }
 
     @BeforeEach
@@ -43,13 +36,12 @@ public class BaseTest {
     void closeContext(TestInfo testInfo) {
         //String traceName = "traces/trace_" + StringUtils.removeRoundBrackets(testInfo.getDisplayName()) + "_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH_mm-ss")) + ".zip";
 
-
         //browserContext.tracing().stop(new Tracing.StopOptions().setPath(Paths.get(traceName))); //zamykanie tracingu
         browserContext.close();
     }
 
     @AfterAll
-    static void closeBrowser() {
-        pw.close();
+    void closeBrowser() {
+        browserFactory.getPlaywright().close();
     }
 }

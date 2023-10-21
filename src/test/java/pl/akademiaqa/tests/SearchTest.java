@@ -1,6 +1,5 @@
 package pl.akademiaqa.tests;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ class SearchTest extends BaseTest {
     void beforeEach() {
         homePage = new HomePage(page);
         page.navigate(Properties.getProperty("app.url"));
+        homePage.getTopNavigationSection().setPageLanguageToEn();
     }
 
     @Test
@@ -51,7 +51,7 @@ class SearchTest extends BaseTest {
 //    }
 
     @DisplayName("Search for products")
-    @ParameterizedTest(name = "Search for {0} sgould return {1} products")
+    @ParameterizedTest(name = "Search for {0} should return {1} products")
     @MethodSource("searchData")
     void should_return_products_by_search_name(String productName, int productCounter){
         SearchResultsPage searchResultsPage = homePage.getTopMenuAndSearchSection().searchForProducts(productName);

@@ -1,0 +1,21 @@
+package pl.akademiaqa.pages;
+
+import com.microsoft.playwright.Page;
+import lombok.Getter;
+import pl.akademiaqa.pages.sections.productDetailsPage.AddToCartSection;
+import pl.akademiaqa.pages.sections.productDetailsPage.ProductCustomizationSection;
+
+import static pl.akademiaqa.utils.PageUtils.waitForPageToLoad;
+
+@Getter
+public class ProductDetailsPage {
+
+    private AddToCartSection addToCartSection;
+    private ProductCustomizationSection customizationSection;
+
+    public ProductDetailsPage(Page page) {
+        waitForPageToLoad(page);
+        this.customizationSection = new ProductCustomizationSection(page);
+        //this.addToCartSection = new AddToCartSection(page);
+    }
+}

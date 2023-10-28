@@ -2,6 +2,9 @@ package pl.akademiaqa.pages.sections.products;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.assertions.PlaywrightAssertions;
+import com.microsoft.playwright.options.AriaRole;
+import pl.akademiaqa.pages.SearchResultsPage;
 
 import java.util.Arrays;
 
@@ -11,10 +14,14 @@ public class FilterBySection {
     private Locator leftSlider;
     private Locator priceLebel;
 
+    private Locator mattPaperCheckbox;
+
     public FilterBySection(Page page) {
         this.page = page;
         this.leftSlider = page.locator(".ui-slider-handle").first();
         this.priceLebel = page.locator("#search_filters li p");
+        this.mattPaperCheckbox = page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions()
+                .setName("Matt paper"));
     }
 
     public void showLeftSlider() {
@@ -42,6 +49,13 @@ public class FilterBySection {
         }
     }
 
+    public void filterProductsByPriceWithKeyboard(double fromPrice) {
+        while (fromPrice != getFromPrice()) {
+            leftSlider.press("ArrowRight");
+            page.waitForCondition(() -> page.locator(".overlay__inner").isHidden());
+        }
+    }
+
     private double getFromPrice(){
         return Arrays.asList(page.locator("#search_filters li p").innerText().split(" "))
                 .stream()
@@ -50,4 +64,12 @@ public class FilterBySection {
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Invalid price format"));
     }
+    public SearchResultsPage setCheckboxTrue(){
+        mattPaperCheckbox.scrollIntoViewIfNeeded();
+        mattPaperCheckbox.click();
+
+        return new SearchResultsPage(page);
+    }
+
+
 }

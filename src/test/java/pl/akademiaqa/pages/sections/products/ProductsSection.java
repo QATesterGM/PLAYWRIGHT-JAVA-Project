@@ -2,9 +2,12 @@ package pl.akademiaqa.pages.sections.products;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import pl.akademiaqa.utils.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static pl.akademiaqa.utils.StringUtils.*;
 
 public class ProductsSection {
     private Page page;
@@ -23,8 +26,15 @@ public class ProductsSection {
     public List<Double> getProductsPrices(){
         return getProductPricesText()
                 .stream()
-                .map(p -> p.replaceAll("zł", ""))
+                .map(p -> p.replaceAll(StringUtils.toUTF8("zł"), ""))
                 .map(Double::parseDouble) //zamieniamy na Double
                 .collect(Collectors.toList());
     }
+
+    public long getProductsCount(){
+        return getProductPricesText()
+                .stream()
+                .count();
+    }
+
 }

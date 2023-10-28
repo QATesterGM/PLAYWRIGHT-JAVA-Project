@@ -13,8 +13,8 @@ public class ProductCustomizationSection {
     public ProductCustomizationSection(Page page) {
         this.page = page;
         this.customMessageInput = page.locator("#field-textField1");
-        this.customMessageInput = page.locator("button[name=submitCustomizedData]");
-        this.customMessageInput = page.locator(".customization-label");
+        this.submitCustomizationButton = page.locator("button[name=submitCustomizedData]");
+        this.customMessageLebel = page.locator(".customization-label");
     }
 
     public void customizeProduct (String customMessage){

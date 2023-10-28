@@ -16,6 +16,6 @@ public class ProductDetailsPage {
     public ProductDetailsPage(Page page) {
         waitForPageToLoad(page);
         this.customizationSection = new ProductCustomizationSection(page);
-        //this.addToCartSection = new AddToCartSection(page);
+        this.addToCartSection = new AddToCartSection(page);
     }
 }

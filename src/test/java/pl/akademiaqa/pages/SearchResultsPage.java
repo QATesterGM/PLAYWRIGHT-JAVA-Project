@@ -4,7 +4,7 @@ import com.microsoft.playwright.Page;
 import lombok.Getter;
 import pl.akademiaqa.pages.sections.searchResultPage.SearchResultsSection;
 
-import static pl.akademiaqa.utils.PageUtils.*;
+import static pl.akademiaqa.utils.PageUtils.waitForPageToLoad;
 
 public class SearchResultsPage {
 

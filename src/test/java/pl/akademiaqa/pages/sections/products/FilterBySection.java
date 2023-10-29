@@ -4,20 +4,18 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.AriaRole;
+import pl.akademiaqa.pages.BasePage;
 import pl.akademiaqa.pages.SearchResultsPage;
 
 import java.util.Arrays;
 
-public class FilterBySection {
-
-    private Page page;
+public class FilterBySection extends BasePage {
     private Locator leftSlider;
     private Locator priceLebel;
-
     private Locator mattPaperCheckbox;
 
     public FilterBySection(Page page) {
-        this.page = page;
+        super(page);
         this.leftSlider = page.locator(".ui-slider-handle").first();
         this.priceLebel = page.locator("#search_filters li p");
         this.mattPaperCheckbox = page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions()

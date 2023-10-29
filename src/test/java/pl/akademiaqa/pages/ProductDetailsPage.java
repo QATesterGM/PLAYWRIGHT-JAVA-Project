@@ -8,12 +8,13 @@ import pl.akademiaqa.pages.sections.productDetailsPage.ProductCustomizationSecti
 import static pl.akademiaqa.utils.PageUtils.waitForPageToLoad;
 
 @Getter
-public class ProductDetailsPage {
+public class ProductDetailsPage extends BasePage{
 
     private AddToCartSection addToCartSection;
     private ProductCustomizationSection customizationSection;
 
     public ProductDetailsPage(Page page) {
+        super(page);
         waitForPageToLoad(page);
         this.customizationSection = new ProductCustomizationSection(page);
         this.addToCartSection = new AddToCartSection(page);

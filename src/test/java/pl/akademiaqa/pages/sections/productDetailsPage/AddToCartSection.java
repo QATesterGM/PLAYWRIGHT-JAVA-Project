@@ -3,6 +3,7 @@ package pl.akademiaqa.pages.sections.productDetailsPage;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import pl.akademiaqa.pages.modals.AddToCartConfirmationModalPage;
 
 public class AddToCartSection {
 
@@ -13,7 +14,9 @@ public class AddToCartSection {
         this.page = page;
         this.addToCartGButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Add to cart"));
     }
-    public void addToCart(){
+    public AddToCartConfirmationModalPage addToCart(){
         addToCartGButton.click();
+
+        return new AddToCartConfirmationModalPage(page);
     }
 }

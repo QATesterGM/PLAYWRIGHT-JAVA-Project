@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Getter
 public class SearchResultsSection extends BasePage {
 
-    private Page page;
     private List<Locator> products;
 
     public SearchResultsSection(Page page) {

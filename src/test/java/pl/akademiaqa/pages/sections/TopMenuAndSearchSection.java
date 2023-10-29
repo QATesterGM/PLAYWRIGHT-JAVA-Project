@@ -8,7 +8,6 @@ import pl.akademiaqa.pages.BasePage;
 import pl.akademiaqa.pages.SearchResultsPage;
 
 public class TopMenuAndSearchSection extends BasePage {
-    private Page page;
     private Locator searchInput;
     private Locator artLink;
 

@@ -4,11 +4,12 @@ import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.akademiaqa.pages.HomePage;
-import pl.akademiaqa.pages.ProductDetailsPage;
-import pl.akademiaqa.pages.SearchResultsPage;
-import pl.akademiaqa.pages.ShopingCartPage;
+import pl.akademiaqa.pages.*;
 import pl.akademiaqa.pages.modals.AddToCartConfirmationModalPage;
+import pl.akademiaqa.pages.sections.orderDetailsPage.OrderAddressSection;
+import pl.akademiaqa.pages.sections.orderDetailsPage.OrderPaymentSection;
+import pl.akademiaqa.pages.sections.orderDetailsPage.OrderPersonalInformationSection;
+import pl.akademiaqa.pages.sections.orderDetailsPage.OrderShippingMethodSection;
 import pl.akademiaqa.utils.Properties;
 
 class BuyProductE2ETest extends BaseTest {
@@ -30,7 +31,11 @@ class BuyProductE2ETest extends BaseTest {
         AddToCartConfirmationModalPage confirmationModal = productDetailsPage.getAddToCartSection().addToCart();
         Assertions.assertThat(confirmationModal.getConfirmationMessage()).contains("Product successfully added to your shopping cart");
         ShopingCartPage shopingCartPage = confirmationModal.clickProceedToCheckoutButton();
-        shopingCartPage.getSummarySection().clickProceedToCheckoutButton();
+        OrderDetailsPage orderDetailsPage = shopingCartPage.getSummarySection().clickProceedToCheckoutButton();
+        OrderAddressSection addressSection = orderDetailsPage.getPersonalInformation().enterPersonalInformation();
+        OrderShippingMethodSection shippingMethodSection = addressSection.enterAddress();
+        OrderPaymentSection paymentSection = shippingMethodSection.checkMyCarrierShippingMethod();
+        paymentSection.fillPaymentMethod();
 
         page.waitForTimeout(3000);
     }

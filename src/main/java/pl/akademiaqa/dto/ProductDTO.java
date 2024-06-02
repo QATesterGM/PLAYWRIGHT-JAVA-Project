@@ -3,7 +3,6 @@ package pl.akademiaqa.dto;
 import com.microsoft.playwright.Locator;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 @Builder

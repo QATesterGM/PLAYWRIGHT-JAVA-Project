@@ -5,7 +5,6 @@ import lombok.Getter;
 import pl.akademiaqa.pages.sections.orderDetailsPage.OrderAddressSection;
 import pl.akademiaqa.pages.sections.orderDetailsPage.OrderPersonalInformationSection;
 import pl.akademiaqa.pages.sections.orderDetailsPage.OrderShippingMethodSection;
-import pl.akademiaqa.utils.PageUtils;
 
 import static pl.akademiaqa.utils.PageUtils.*;
 

@@ -39,7 +39,7 @@ public class FilterByPriceTest extends BaseTest {
     }
 
     @Test
-    void should_return_products_with_price_grater_tan_40_by_KeyboardTest() {
+    void should_return_products_with_price_grater_than_40_by_KeyboardTest() {
         ArtPage artPage = homePage.getTopMenuAndSearchSection().clickArtLink();
         artPage.getFilterBySection().filterProductsByPriceWithKeyboard(40.00);
         Assertions.assertThat(artPage.getProductsSection()

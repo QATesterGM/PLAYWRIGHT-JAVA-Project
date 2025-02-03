@@ -24,7 +24,7 @@ public class ReadSingleUserTest {
     APIRequestContext apiContext;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         Map<String, String> headers = new HashMap<>(); //Mapa nagłówków ##II##
         headers.put("Content-Type", "application/json");
 
@@ -33,46 +33,48 @@ public class ReadSingleUserTest {
         apiContext = request.newContext(new APIRequest.NewContextOptions()
                 .setBaseURL("http://localhost:3000/")
                 .setExtraHTTPHeaders(headers));  //tworzymy mape naglowkow  ##I##
-    };
+    }
 
     @Test
-    void should_return_single_user_response_test(){
-        APIResponse response = apiContext.get("users/11");
+    void should_return_single_user_response_test() {
+        APIResponse response = apiContext.get("users/10");
         PlaywrightAssertions.assertThat(response).isOK();
 
-//        System.out.println(response.status());
-//        System.out.println(response.statusText());
-//        System.out.println(response.text());
+        System.out.println(response.status());
+        //System.out.println(response.statusText());
+        System.out.println(response.text());
 //        System.out.println(response.headers());
 //        System.out.println(response.url());
     }
 
     @Test
-    void should_return_single_user_gson_test(){
-        APIResponse response = apiContext.get("users/11");
+    void should_return_single_user_gson_test() {
+        APIResponse response = apiContext.get("users/10");
         PlaywrightAssertions.assertThat(response).isOK();
         //GSON - zamiana odpowiedzi na JsonObject
-        JsonObject jasonResponse = new Gson().fromJson(response.text(), JsonObject.class);
-        System.out.println(jasonResponse);
-        //System.out.println(jasonResponse.get("address.city"));
-        System.out.println(jasonResponse.get("username"));
+        JsonObject jsonResponse = new Gson().fromJson(response.text(), JsonObject.class);
+        System.out.println(jsonResponse);
+        //System.out.println(jsonResponse.get("address.city"));
+        System.out.println(jsonResponse.get("username"));
+        System.out.println(jsonResponse.get("email"));
     }
 
     @Test
     void should_return_single_user_jackson_test() throws IOException {
-        APIResponse response = apiContext.get("users/11");
+        APIResponse response = apiContext.get("users/10");
         PlaywrightAssertions.assertThat(response).isOK();
 
         // JACKSON-DATABIND - zamiana odpowiedzi na JsonNode
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readTree(response.text());
+        System.out.println(jsonNode.toPrettyString());
         System.out.println(jsonNode.get("email"));
-        //System.out.println(jsonNode.get("address.city"));
     }
 
-    @Test // DESERIALIZACJA
-    void should_return_single_user_dto_test(){  //Zamiana na object JAVA
-        APIResponse response = apiContext.get("users/11");
+    @Test
+        // DESERIALIZACJA
+    void should_return_single_user_dto_test() {  //Zamiana na object JAVA
+        APIResponse response = apiContext.get("users/10");
         PlaywrightAssertions.assertThat(response).isOK();
 
         GetUserResponse userResponse = new Gson().fromJson(response.text(), GetUserResponse.class);

@@ -1,5 +1,6 @@
 package pl.akademiaqa.BEtests;
 
+import com.google.gson.JsonObject;
 import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.RequestOptions;
@@ -87,5 +88,38 @@ class CreateUserTest extends BaseApiTest {
     @Test
     void should_create_new_user_from_json_object_payload_test(){
 
+        //GEO
+        JsonObject geo = new JsonObject();
+        geo.addProperty("lat", "-37.3169");
+        geo.addProperty("lng", "81.1496");
+
+        //ADDRESS
+        JsonObject address = new JsonObject();
+        address.addProperty("street", "Brneńska JsonObject");
+        address.addProperty("suite", "777 88");
+        address.addProperty("city", "Lublin");
+        address.addProperty("zipcode", "Szkolna");
+        address.add("geo", geo);
+
+        //COMPANY
+        JsonObject company = new JsonObject();
+        company.addProperty("name", "Lucky Corp JsonObject");
+        company.addProperty("catchPhrase", "Magiczne rzeczy");
+        company.addProperty("bs", "Lucky Corp Industries JsonObject");
+
+        //USER
+        JsonObject user = new JsonObject();
+        user.addProperty("username", "Lukasz Gajda JsonObject");
+        user.addProperty("email", "mailtestowy34@gmail.com");
+        user.add("address", address);
+        user.addProperty("phone", "543-777-777");
+        user.addProperty("website", "JsonObject.net");
+        user.add("company", company);
+
+
+        APIResponse apiResponse = apiContext.post("users", RequestOptions.create().setData(user));
+        PlaywrightAssertions.assertThat(apiResponse).isOK();
+
+        log.info("Created user: " + apiResponse.text());
     }
 }

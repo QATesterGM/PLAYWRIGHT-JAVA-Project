@@ -28,6 +28,7 @@ class ReadAllUsersTest extends BaseApiTest {
     void should_return_list_of_users_gson_test(){
         APIResponse apiResponse = apiContext.get("users");
         PlaywrightAssertions.assertThat(apiResponse).isOK();
+
         JsonArray jsonArray = new Gson().fromJson(apiResponse.text(), JsonArray.class);
         log.info(jsonArray.toString());
 

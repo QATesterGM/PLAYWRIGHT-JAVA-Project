@@ -26,10 +26,12 @@ class BuyProductE2ETest extends BaseTest {
         SearchResultsPage searchResultsPage = homePage.getTopMenuAndSearchSection().searchForProducts("Customizable Mug");
         ProductDetailsPage productDetailsPage = searchResultsPage.getSearchResultsSection().viewProductDetails("Customizable Mug");
         productDetailsPage.getCustomizationSection().customizeProduct("LuckyLuke");
-        AddToCartConfirmationModalPage confirmationModal = productDetailsPage.getAddToCartSection().addToCart();
+        AddToCartConfirmationModalPage confirmationModal = productDetailsPage.getAddToCartSection().addProductToCart();
         Assertions.assertThat(confirmationModal.getConfirmationMessage()).contains("Product successfully added to your shopping cart");
+
         ShopingCartPage shopingCartPage = confirmationModal.clickProceedToCheckoutButton();
         OrderDetailsPage orderDetailsPage = shopingCartPage.getSummarySection().clickProceedToCheckoutButton();
+
         OrderAddressSection addressSection = orderDetailsPage.getPersonalInformation().enterPersonalInformation();
         OrderShippingMethodSection shippingMethodSection = addressSection.enterAddress();
         OrderPaymentSection paymentSection = shippingMethodSection.checkMyCarrierShippingMethod();
@@ -38,8 +40,8 @@ class BuyProductE2ETest extends BaseTest {
         page.waitForTimeout(3000);
     }
 
-//    @Test
-//    void should_buy_one_selected_product_V2() {
-//
-//    }
+    @Test
+    void should_buy_one_selected_product_V2() {
+        homePage.getTopMenuAndSearchSection().searchForProducts("Customizable Mug");
+    }
 }

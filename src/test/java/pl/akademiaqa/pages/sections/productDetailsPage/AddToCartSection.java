@@ -14,7 +14,7 @@ public class AddToCartSection extends BasePage {
         super(page);
         this.addToCartGButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Add to cart"));
     }
-    public AddToCartConfirmationModalPage addToCart(){
+    public AddToCartConfirmationModalPage addProductToCart(){
         addToCartGButton.click();
 
         return new AddToCartConfirmationModalPage(page);

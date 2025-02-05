@@ -7,7 +7,11 @@ import com.microsoft.playwright.options.RequestOptions;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.akademiaqa.BEtests.response.user.GetUserResponse;
+import pl.akademiaqa.utils.Properties;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,4 +126,29 @@ class CreateUserTest extends BaseApiTest {
 
         log.info("Created user: " + apiResponse.text());
     }
+
+    private byte[] getPayloadFromFile(String fileName) throws IOException{
+        return Files.readAllBytes(Path.of(Properties.getProperty("app.json.file.path") + fileName));
+    }
+    @Test
+    void should_create_new_user_from_file_payload_test() throws IOException{
+        byte[] user = getPayloadFromFile("user.json");
+        APIResponse apiResponse = apiContext.post("users", RequestOptions.create().setData(user));
+        PlaywrightAssertions.assertThat(apiResponse).isOK();
+
+        log.info("Created user: " + apiResponse.text());
+    }
+
+
+//    @Test
+//    void should_create_new_user_from_dto_payload_test(){
+//
+//        // serializacja - obiekt na json
+//        APIResponse response = apiContext.post("users", RequestOptions.create(user));
+//        PlaywrightAssertions.assertThat(response).isOK();
+//
+//        System.out.println(response.text());
+//    }
+
+
 }

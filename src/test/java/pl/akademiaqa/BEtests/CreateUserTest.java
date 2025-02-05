@@ -6,7 +6,7 @@ import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.RequestOptions;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pl.akademiaqa.BEtests.response.user.GetUserResponse;
+import pl.akademiaqa.BEtests.payload.user.CreateUserPayload;
 import pl.akademiaqa.utils.Properties;
 
 import java.io.IOException;
@@ -53,7 +53,7 @@ class CreateUserTest extends BaseApiTest {
     }
 
     @Test
-    void should_create_new_user_from_map_payload_test(){
+    void should_create_new_user_from_map_payload_test() {
 
         //GEO
         Map<String, Object> geo = new HashMap<>();
@@ -90,7 +90,7 @@ class CreateUserTest extends BaseApiTest {
     }
 
     @Test
-    void should_create_new_user_from_json_object_payload_test(){
+    void should_create_new_user_from_json_object_payload_test() {
 
         //GEO
         JsonObject geo = new JsonObject();
@@ -127,11 +127,12 @@ class CreateUserTest extends BaseApiTest {
         log.info("Created user: " + apiResponse.text());
     }
 
-    private byte[] getPayloadFromFile(String fileName) throws IOException{
+    private byte[] getPayloadFromFile(String fileName) throws IOException {
         return Files.readAllBytes(Path.of(Properties.getProperty("app.json.file.path") + fileName));
     }
+
     @Test
-    void should_create_new_user_from_file_payload_test() throws IOException{
+    void should_create_new_user_from_file_payload_test() throws IOException {
         byte[] user = getPayloadFromFile("user.json");
         APIResponse apiResponse = apiContext.post("users", RequestOptions.create().setData(user));
         PlaywrightAssertions.assertThat(apiResponse).isOK();
@@ -139,16 +140,16 @@ class CreateUserTest extends BaseApiTest {
         log.info("Created user: " + apiResponse.text());
     }
 
+    @Test
+    void should_create_new_user_from_dto_payload_test() {
 
-//    @Test
-//    void should_create_new_user_from_dto_payload_test(){
-//
-//        // serializacja - obiekt na json
-//        APIResponse response = apiContext.post("users", RequestOptions.create(user));
-//        PlaywrightAssertions.assertThat(response).isOK();
-//
-//        System.out.println(response.text());
-//    }
+        CreateUserPayload user = CreateUserPayload.createDefaultUserPayload();
+        // serializacja - obiekt na json
+        APIResponse response = apiContext.post("users", RequestOptions.create().setData(user));
+        PlaywrightAssertions.assertThat(response).isOK();
+
+        log.info("Created user: " + response.text());
+    }
 
 
 }
